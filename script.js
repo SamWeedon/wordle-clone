@@ -1,7 +1,7 @@
 /*
 WORDLE RULES:
 5 letter words only
-5 chances
+6 chances
 green = correct location
 yellow = in word but wrong location
 keyboard below with status of letters
@@ -12,32 +12,28 @@ let prototypeWord = 'truck';
 
 const squareList = Array.from(document.querySelectorAll('.square'));
 
-let squareCounter = 0;
-let charCounter = 0;
+let squareIndex = 0;
+let charIndex = 0;
 let word = "";
-document.addEventListener('keydown', function(event) {
-    squareList[squareCounter].textContent = event.key;
-    squareCounter++;
-    if (squareCounter % 5 === 0 && squareCounter !== 0) {
-        charCounter = 0;
-        squareList.slice(squareCounter - 5, squareCounter).forEach(function(square) {
+document.addEventListener('keydown', function addChar(event) {
+    squareList[squareIndex].textContent = event.key;
+    squareIndex++;
+    if (squareIndex % 5 === 0 && squareIndex !== 0) {
+        charIndex = 0;
+        squareList.slice(squareIndex - 5, squareIndex).forEach(function(square) {
             word+= square.textContent;
-            if (square.textContent === prototypeWord[charCounter]) {
+            if (square.textContent === prototypeWord[charIndex]) {
                 square.style.background = 'green';
             }
             else if (prototypeWord.includes(square.textContent)) {
                 square.style.background = 'yellow';
             }
-            charCounter++;
+            charIndex++;
         });
         console.log(word);
         if (word.includes(prototypeWord)) {
-            console.log("you win")
-        }
-        for (let i = 0; i < 5; i++) {
-            if (word[i] === prototypeWord[i]) {
-
-            }
+            console.log("you win");
+            document.removeEventListener('keydown', addChar);
         }
         word = "";
     }
