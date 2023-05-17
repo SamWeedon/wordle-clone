@@ -12,19 +12,34 @@ let prototypeWord = 'truck';
 
 const squareList = Array.from(document.querySelectorAll('.square'));
 
-let counter = 0;
+let squareCounter = 0;
+let charCounter = 0;
 let word = "";
 document.addEventListener('keydown', function(event) {
-    squareList[counter].textContent = event.key;
-    counter++;
-    if (counter % 5 === 0 && counter !== 0) {
-        squareList.slice(counter - 5, counter + 1).forEach(function(square) {
+    squareList[squareCounter].textContent = event.key;
+    squareCounter++;
+    if (squareCounter % 5 === 0 && squareCounter !== 0) {
+        charCounter = 0;
+        squareList.slice(squareCounter - 5, squareCounter).forEach(function(square) {
             word+= square.textContent;
-            if (word.length === 5) {
-                console.log(word);
-                word = "";
+            if (square.textContent === prototypeWord[charCounter]) {
+                square.style.background = 'green';
             }
+            else if (prototypeWord.includes(square.textContent)) {
+                square.style.background = 'yellow';
+            }
+            charCounter++;
         });
+        console.log(word);
+        if (word.includes(prototypeWord)) {
+            console.log("you win")
+        }
+        for (let i = 0; i < 5; i++) {
+            if (word[i] === prototypeWord[i]) {
+
+            }
+        }
+        word = "";
     }
 })
 
