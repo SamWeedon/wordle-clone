@@ -7,8 +7,15 @@ yellow = in word but wrong location
 keyboard below with status of letters
 statistics after each win/loss
 */
-let wordList = ['truck', 'elect'];
-let prototypeWord = 'truck';
+
+function selectRandomWord(stringArray) {
+    index = Math.floor(Math.random() * stringArray.length);
+    return stringArray[index];
+}
+
+let wordList = ['truck', 'elect', 'coach', 'build', 'brain', 'cycle', 'craft', 'union', 'storm'];
+let prototypeWord = selectRandomWord(wordList);
+console.log(prototypeWord);
 
 const squareList = Array.from(document.querySelectorAll('.square'));
 
@@ -38,4 +45,3 @@ document.addEventListener('keydown', function addChar(event) {
         word = "";
     }
 })
-
